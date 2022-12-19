@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  mainsys:
+    build: 
+      context: MainSys
+      args:
+        URL: "http://secondsys:80"
+    networks:
+      - common
+    ports:
+      - 5000:80
+    volumes:
+      - './MainSys:/main_app'
+    depends_on:
+      - secondsys
+  secondsys:
+    build: SecondSys
+    networks:
+      - common
+networks:
+  common:
